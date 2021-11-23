@@ -27,6 +27,13 @@ import SoundObject
 def load_audiobook(filename, length, start = 0):
     return SoundObject.SoundObject(DATA_DIR, filename, start, length)
 
+def file_present_test(filename):
+    """
+    will cause error if fails, use this function in a try except block only
+    """
+    load_audiobook(filename, 3000, 0).load_sound(DATA_DIR, filename)
+
+
 # General Sounds
 general_not_available = SoundObject.SoundObject(DATA_DIR, MENUS2, 11647, 822)
 general_your_selection = SoundObject.SoundObject(DATA_DIR, MENUS2, 6659, 1315)
@@ -73,7 +80,7 @@ mode_topics = SoundObject.SoundObject(DATA_DIR, MENUS5, 3476, 2406)
 # Reading Menu Sounds
 reading_entering = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 10516, 1319)
 reading_book_name = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 12461, 2472)
-reading_rewind = SoundObject.SoundObject(DATA_DIR, MENUS4, 7174, .655)
+reading_rewind = SoundObject.SoundObject(DATA_DIR, MENUS4, 7174, 655)
 reading_fastforward = SoundObject.SoundObject(DATA_DIR, MENUS4, 9795, 679)
 reading_pause = SoundObject.SoundObject(DATA_DIR, MENUS4, 10928, 477)
 reading_play = SoundObject.SoundObject(DATA_DIR, MENUS4, 11595, 310)

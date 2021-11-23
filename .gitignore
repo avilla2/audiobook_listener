@@ -1,1 +1,4 @@
 data/Norman\ Chapter\ 2\ Audio.ogg
+data/savestate.txt
+__pycache__/
+.DS_Store

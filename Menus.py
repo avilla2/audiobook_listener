@@ -228,12 +228,19 @@ class Menu_Chapters(State):
         self.context.transition_back()
 
     def handle_5(self) -> None: 
-        if self.options[self.current][1] == 'not_available':
+        try:
+            if self.options[self.current][1] == 'not_available':
+                Sounds.general_not_available.play()
+            else:
+                # Play the sound of the chapter to see if it is available, if 
+                check_if_present = BookData.audio_files[self.context.get_current_book()][self.options[self.current][1]][0]
+                Sounds.file_present_test(check_if_present)
+                self.context.set_current_chapter(self.options[self.current][1])
+                self.context.set_time(-1)
+                self.context.transition_to("menu_modes")
+        except:
             Sounds.general_not_available.play()
-        else:
-            self.context.set_current_chapter(self.options[self.current][1])
-            self.context.set_time(-1)
-            self.context.transition_to("menu_modes")
+        
 
 class Menu_Modes(State):
     
@@ -350,7 +357,7 @@ class Menu_Reading(State):
         
     def handle_2(self) -> None:
         print("Fast Forward")
-        Sounds.general_not_available.play()
+        Sounds.reading_fastforward.play()
         self.time += 30000
         if self.time >= self.length:
             self.time = self.length
@@ -363,7 +370,7 @@ class Menu_Reading(State):
         if self.paused:
             print("Play")
             self.audio = Sounds.load_audiobook(self.filename, self.length, self.time)
-            self.audio.chain()
+            self.audio.play()
             self.paused = not self.paused
         else:
             print("Pause")
@@ -497,7 +504,6 @@ class Menu_Headings(State):
             for entry in range(CURSOR.GetCursor(), len(self.audio_list)):
                 self.audio_list[entry].chain()
             self.paused = not self.paused
-            
         else:
             print("Pause")
             self.pos = CURSOR.GetCursor()
