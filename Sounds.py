@@ -21,6 +21,7 @@ MENUS2 = 'menus2.ogg'
 MENUS3 = 'menus3.ogg'
 MENUS4 = 'menus4.ogg'
 MENUS5 = 'menus5.ogg'
+button_main = 'Main.ogg'
 
 import SoundObject
 
@@ -122,4 +123,8 @@ help_pause_and_play = SoundObject.SoundObject(DATA_DIR, MENUS3, 28053, 924)
 help_save_and_back = SoundObject.SoundObject(DATA_DIR, MENUS3, 29339, 924)
 help_rewind = SoundObject.SoundObject(DATA_DIR, MENUS4, 8330, 1168)
 
-
+help_button1 = SoundObject.SoundObject(DATA_DIR, button_main, 1500, 2000)
+help_button2 = SoundObject.SoundObject(DATA_DIR, button_main, 4100, 2000)
+help_button3 = SoundObject.SoundObject(DATA_DIR, button_main, 6500, 2700)
+help_button4 = SoundObject.SoundObject(DATA_DIR, button_main, 9800, 2500)
+help_button5 = SoundObject.SoundObject(DATA_DIR, button_main, 13000, 3000)

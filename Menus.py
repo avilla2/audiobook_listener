@@ -76,16 +76,21 @@ class Menu_Home(State):
         Sounds.help_running.play()
         Sounds.help_currently_in.chain()
         Sounds.help_home_menu.chain()
-        Sounds.help_buttons.chain()
-        Sounds.help_f.chain()
-        Sounds.help_scroll_down.chain()
-        Sounds.help_d.chain()
-        Sounds.help_scroll_up.chain()
-        Sounds.help_space.chain()
-        Sounds.help_select_current.chain()
-        Sounds.help_s.chain()
-        Sounds.help_a.chain()
-        Sounds.help_quit.chain()
+        Sounds.help_button1.chain()
+        Sounds.help_button2.chain()
+        Sounds.help_button3.chain()
+        Sounds.help_button4.chain()
+        Sounds.help_button5.chain()
+        #Sounds.help_buttons.chain()
+        #Sounds.help_f.chain()
+        #Sounds.help_scroll_down.chain()
+        #Sounds.help_d.chain()
+        #Sounds.help_scroll_up.chain()
+        #Sounds.help_space.chain()
+        #Sounds.help_select_current.chain()
+        #Sounds.help_s.chain()
+        #Sounds.help_a.chain()
+        #Sounds.help_quit.chain()
         print("Press A or ; to quit the program")
 
 
@@ -147,6 +152,12 @@ class Menu_New(State):
         Sounds.help_running.play()
         Sounds.help_currently_in.chain()
         Sounds.help_book_selection.chain()
+        Sounds.help_button1.chain()
+        Sounds.help_button2.chain()
+        Sounds.help_button3.chain()
+        Sounds.help_button4.chain()
+        Sounds.help_button5.chain()
+        '''
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
         Sounds.help_scroll_down.chain()
@@ -157,6 +168,7 @@ class Menu_New(State):
         Sounds.help_s.chain()
         Sounds.help_a.chain()
         Sounds.help_back.chain()
+        '''
         
     def handle_4(self) -> None:
         print("Quitting.")
@@ -212,6 +224,12 @@ class Menu_Chapters(State):
         Sounds.help_running.play()
         Sounds.help_currently_in.chain()
         Sounds.help_chapter_selection.chain()
+        Sounds.help_button1.chain()
+        Sounds.help_button2.chain()
+        Sounds.help_button3.chain()
+        Sounds.help_button4.chain()
+        Sounds.help_button5.chain()
+        '''
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
         Sounds.help_scroll_down.chain()
@@ -222,6 +240,7 @@ class Menu_Chapters(State):
         Sounds.help_s.chain()
         Sounds.help_a.chain()
         Sounds.help_back.chain()
+        '''
         
     def handle_4(self) -> None:
         print("Quitting.")
@@ -283,6 +302,12 @@ class Menu_Modes(State):
         Sounds.help_running.play()
         Sounds.help_currently_in.chain()
         Sounds.help_mode_selection.chain()
+        Sounds.help_button1.chain()
+        Sounds.help_button2.chain()
+        Sounds.help_button3.chain()
+        Sounds.help_button4.chain()
+        Sounds.help_button5.chain()
+        '''
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
         Sounds.help_scroll_down.chain()
@@ -293,6 +318,7 @@ class Menu_Modes(State):
         Sounds.help_s.chain()
         Sounds.help_a.chain()
         Sounds.help_back.chain()
+        '''
         
     def handle_4(self) -> None:
         print("Quitting.")
