@@ -22,6 +22,7 @@ MENUS3 = 'menus3.ogg'
 MENUS4 = 'menus4.ogg'
 MENUS5 = 'menus5.ogg'
 button_main = 'Main.ogg'
+button_listin = 'Listin.ogg'
 
 import SoundObject
 
@@ -123,8 +124,16 @@ help_pause_and_play = SoundObject.SoundObject(DATA_DIR, MENUS3, 28053, 924)
 help_save_and_back = SoundObject.SoundObject(DATA_DIR, MENUS3, 29339, 924)
 help_rewind = SoundObject.SoundObject(DATA_DIR, MENUS4, 8330, 1168)
 
+# help sound for main menu
 help_button1 = SoundObject.SoundObject(DATA_DIR, button_main, 1500, 2000)
 help_button2 = SoundObject.SoundObject(DATA_DIR, button_main, 4100, 2000)
 help_button3 = SoundObject.SoundObject(DATA_DIR, button_main, 6500, 2700)
 help_button4 = SoundObject.SoundObject(DATA_DIR, button_main, 9800, 2500)
 help_button5 = SoundObject.SoundObject(DATA_DIR, button_main, 13000, 3000)
+
+# help sound for while reading
+listin_b1 = SoundObject.SoundObject(DATA_DIR, button_listin, 1680, 2500)
+listin_b2 = SoundObject.SoundObject(DATA_DIR, button_listin, 4830, 2000)
+listin_b3 = SoundObject.SoundObject(DATA_DIR, button_listin, 8000, 2500)
+listin_b4 = SoundObject.SoundObject(DATA_DIR, button_listin, 10950, 2500)
+listin_b5 = SoundObject.SoundObject(DATA_DIR, button_listin, 14450, 4000)
