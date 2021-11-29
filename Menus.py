@@ -454,8 +454,9 @@ class Menu_Headings(State):
                 BookData.book_titles_audio[self.filename][1].chain()
                 times_list = BookData.section_times[book][chapter]
                 for entry in times_list:
-                    new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
-                    self.audio_list.append(new_sound)
+                    if entry[2] ==  1:
+                        new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
+                        self.audio_list.append(new_sound)
                 start = self.pos
                 self.length = len(self.audio_list)
                 CURSOR.SetCursor(start)
@@ -593,9 +594,8 @@ class Menu_Headings_And_Topics(State):
                 BookData.book_titles_audio[self.filename][1].chain()
                 times_list = BookData.section_times[book][chapter]
                 for entry in times_list:
-                    if entry[2] ==  1:
-                        new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
-                        self.audio_list.append(new_sound)
+                    new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
+                    self.audio_list.append(new_sound)
                 start = self.pos
                 self.length = len(self.audio_list)
                 CURSOR.SetCursor(start)
