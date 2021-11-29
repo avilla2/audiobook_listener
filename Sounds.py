@@ -87,7 +87,7 @@ reading_pause = SoundObject.SoundObject(DATA_DIR, MENUS4, 10928, 477)
 reading_play = SoundObject.SoundObject(DATA_DIR, MENUS4, 11595, 310)
 reading_reading_book = SoundObject.SoundObject(DATA_DIR, MENUS5, 802, 1012)
 reading_chapter = SoundObject.SoundObject(DATA_DIR, MENUS5, 2082, 802)
-reading_continue_audio = SoundObject.SoundObject(DATA_DIR, MENUS5, 6397, 2807)
+reading_continue_audio = SoundObject.SoundObject(DATA_DIR, MENUS5, 8032, 1117)
 reading_corrupt = SoundObject.SoundObject(DATA_DIR, MENUS5, 9873, 1318)
 
 # Save Menu Sounds (Depricated)

@@ -388,6 +388,7 @@ class Menu_Reading(State):
             Sounds.help_running.play()
             Sounds.help_currently_in.chain()
             Sounds.help_standard_mode.chain()
+            Sounds.help_s.chain()
             Sounds.reading_continue_audio.chain()
             Sounds.reading_reading_book.chain()
             BookData.book_titles_audio[self.filename][0].chain()
@@ -404,6 +405,7 @@ class Menu_Reading(State):
             Sounds.help_for_help.chain()
             Sounds.help_a.chain()
             Sounds.help_options_menu.chain()
+            Sounds.help_s.chain()
             Sounds.reading_continue_audio.chain()
             self.paused = not self.paused
 
@@ -547,6 +549,7 @@ class Menu_Headings(State):
             Sounds.help_running.play()
             Sounds.help_currently_in.chain()
             Sounds.help_headings_mode.chain()
+            Sounds.help_s.chain()
             Sounds.reading_continue_audio.chain()
             Sounds.reading_reading_book.chain()
             BookData.book_titles_audio[self.filename][0].chain()
@@ -563,6 +566,7 @@ class Menu_Headings(State):
             Sounds.help_for_help.chain()
             Sounds.help_a.chain()
             Sounds.help_options_menu.chain()
+            Sounds.help_s.chain()
             Sounds.reading_continue_audio.chain()
             self.paused = not self.paused
 
@@ -718,6 +722,8 @@ class Menu_Headings_And_Topics(State):
             Sounds.help_running.play()
             Sounds.help_currently_in.chain()
             Sounds.help_topics_mode.chain()
+            Sounds.help_s.chain()
+            Sounds.help_s.chain()
             Sounds.reading_continue_audio.chain()
             Sounds.reading_reading_book.chain()
             BookData.book_titles_audio[self.filename][0].chain()
@@ -734,6 +740,8 @@ class Menu_Headings_And_Topics(State):
             Sounds.help_for_help.chain()
             Sounds.help_a.chain()
             Sounds.help_options_menu.chain()
+            Sounds.help_s.chain()
+            Sounds.help_s.chain()
             Sounds.reading_continue_audio.chain()
             self.paused = not self.paused
 
