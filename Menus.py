@@ -403,7 +403,7 @@ class Menu_Reading(State):
             Sounds.help_s.chain()
             Sounds.help_for_help.chain()
             Sounds.help_a.chain()
-            Sounds.help_save_and_back.chain()
+            Sounds.help_options_menu.chain()
             Sounds.reading_continue_audio.chain()
             self.paused = not self.paused
 
@@ -562,7 +562,7 @@ class Menu_Headings(State):
             Sounds.help_s.chain()
             Sounds.help_for_help.chain()
             Sounds.help_a.chain()
-            Sounds.help_save_and_back.chain()
+            Sounds.help_options_menu.chain()
             Sounds.reading_continue_audio.chain()
             self.paused = not self.paused
 
@@ -733,7 +733,7 @@ class Menu_Headings_And_Topics(State):
             Sounds.help_s.chain()
             Sounds.help_for_help.chain()
             Sounds.help_a.chain()
-            Sounds.help_save_and_back.chain()
+            Sounds.help_options_menu.chain()
             Sounds.reading_continue_audio.chain()
             self.paused = not self.paused
 
