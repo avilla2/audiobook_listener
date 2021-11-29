@@ -21,6 +21,7 @@ MENUS2 = 'menus2.ogg'
 MENUS3 = 'menus3.ogg'
 MENUS4 = 'menus4.ogg'
 MENUS5 = 'menus5.ogg'
+MENUS6 = 'menus6.ogg'
 
 import SoundObject
 
@@ -37,7 +38,7 @@ def file_present_test(filename):
 # General Sounds
 general_not_available = SoundObject.SoundObject(DATA_DIR, MENUS2, 11647, 822)
 general_your_selection = SoundObject.SoundObject(DATA_DIR, MENUS2, 6659, 1315)
-general_for_help = SoundObject.SoundObject(DATA_DIR, MENUS2, 4522, 1891)
+general_for_help = SoundObject.SoundObject(DATA_DIR, MENUS2, 4573, 942)
 
 # Book Titles
 book_1 = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 20670, 1648)
@@ -63,7 +64,7 @@ chapter_5_book_1 = SoundObject.SoundObject(DATA_DIR, CHAPTERS_NAV, 14778, 1929)
 home_option_1 = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 5769, 1681)
 home_option_2 = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 8143, 1681)
 home_entering = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 890, 1253)
-home_to_quit = SoundObject.SoundObject(DATA_DIR, MENUS2, 2165, 1891)
+home_to_quit = SoundObject.SoundObject(DATA_DIR, MENUS2, 2125, 1023)
 
 # New Reading Menu Sounds
 new_entering = SoundObject.SoundObject(DATA_DIR, S_FILE_NAV, 19121, 857)
@@ -89,7 +90,7 @@ reading_chapter = SoundObject.SoundObject(DATA_DIR, MENUS5, 2082, 802)
 reading_continue_audio = SoundObject.SoundObject(DATA_DIR, MENUS5, 6397, 2807)
 reading_corrupt = SoundObject.SoundObject(DATA_DIR, MENUS5, 9873, 1318)
 
-# Save Menu Sounds
+# Save Menu Sounds (Depricated)
 save_a = SoundObject.SoundObject(DATA_DIR, MENUS5, 11744, 2731)
 save_space = SoundObject.SoundObject(DATA_DIR, MENUS5, 14781, 2425)
 save_any = SoundObject.SoundObject(DATA_DIR, MENUS5, 17798, 3246)
@@ -105,11 +106,7 @@ help_standard_mode = SoundObject.SoundObject(DATA_DIR, MENUS2, 22800, 1535)
 help_headings_mode = SoundObject.SoundObject(DATA_DIR, MENUS2, 25835, 1139)
 help_topics_mode = SoundObject.SoundObject(DATA_DIR, MENUS2, 27464, 2741)
 help_buttons = SoundObject.SoundObject(DATA_DIR, MENUS3, 692, 1039)
-help_f = SoundObject.SoundObject(DATA_DIR, MENUS3, 2077, 1731)
-help_d = SoundObject.SoundObject(DATA_DIR, MENUS3, 4147, 1673)
-help_space = SoundObject.SoundObject(DATA_DIR, MENUS3, 6193, 1212)
-help_s = SoundObject.SoundObject(DATA_DIR, MENUS3, 7751, 2635)
-help_a = SoundObject.SoundObject(DATA_DIR, MENUS3, 11136, 2154)
+help_for_help = SoundObject.SoundObject(DATA_DIR, MENUS3, 9275, 1152)
 help_scroll_down = SoundObject.SoundObject(DATA_DIR, MENUS3, 13655, 1750)
 help_scroll_up = SoundObject.SoundObject(DATA_DIR, MENUS3, 15444, 1654)
 help_select_current = SoundObject.SoundObject(DATA_DIR, MENUS3, 17329, 1500)
@@ -121,5 +118,19 @@ help_previous = SoundObject.SoundObject(DATA_DIR, MENUS3, 26000, 1661)
 help_pause_and_play = SoundObject.SoundObject(DATA_DIR, MENUS3, 28053, 924)
 help_save_and_back = SoundObject.SoundObject(DATA_DIR, MENUS3, 29339, 924)
 help_rewind = SoundObject.SoundObject(DATA_DIR, MENUS4, 8330, 1168)
+help_f = SoundObject.SoundObject(DATA_DIR, MENUS6, 1160, 885)
+help_d = SoundObject.SoundObject(DATA_DIR, MENUS6, 2713, 1000)
+help_s = SoundObject.SoundObject(DATA_DIR, MENUS6, 4522, 963)
+help_a = SoundObject.SoundObject(DATA_DIR, MENUS6, 6400, 1081)
+help_space = SoundObject.SoundObject(DATA_DIR, MENUS6, 8100, 924)
+help_options_menu = SoundObject.SoundObject(DATA_DIR, MENUS6, 10398, 841)
 
+# Options Menu Sounds
+options_entering = SoundObject.SoundObject(DATA_DIR, MENUS6, 9889, 1346)
+options_save_and_quit = SoundObject.SoundObject(DATA_DIR, MENUS6, 11866, 851)
+options_quit_without = SoundObject.SoundObject(DATA_DIR, MENUS6, 13356, 1253)
+options_cancel = SoundObject.SoundObject(DATA_DIR, MENUS6, 15318, 686)
+options_headings = SoundObject.SoundObject(DATA_DIR, MENUS6, 16689, 804)
+options_topics = SoundObject.SoundObject(DATA_DIR, MENUS6, 17750, 1938)
+options_standard = SoundObject.SoundObject(DATA_DIR, MENUS6, 20366, 824)
 

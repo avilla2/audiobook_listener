@@ -79,11 +79,11 @@ def main():
             elif event.type == pygame.KEYDOWN:
 
                 # Button 1 is pressed
-                if event.key == pygame.K_j or event.key == pygame.K_d:
+                if event.key == pygame.K_k or event.key == pygame.K_d:
                     context.button_1_press()
 
                 # Button 2 is pressed
-                elif event.key == pygame.K_k or event.key == pygame.K_f:
+                elif event.key == pygame.K_j or event.key == pygame.K_f:
                     context.button_2_press()
 
                 # Button 3 is pressed

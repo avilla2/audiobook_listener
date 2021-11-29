@@ -7,6 +7,7 @@ Uses Python 3.10 and pygame 2.0.2
 ----------------------------------------
 """
 
+from os import times
 from State import State
 import Sounds
 import BookData
@@ -60,7 +61,9 @@ class Menu_Home(State):
         self.option_numbers = len(self.options) - 1
         Sounds.home_entering.play()
         Sounds.home_to_quit.chain()
+        Sounds.help_a.chain()
         Sounds.general_for_help.chain()
+        Sounds.help_s.chain()
         Sounds.general_your_selection.chain()
         self.options[self.current][0].chain()
 
@@ -78,12 +81,13 @@ class Menu_Home(State):
         Sounds.help_home_menu.chain()
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
-        Sounds.help_scroll_down.chain()
-        Sounds.help_d.chain()
         Sounds.help_scroll_up.chain()
+        Sounds.help_d.chain()
+        Sounds.help_scroll_down.chain()
         Sounds.help_space.chain()
         Sounds.help_select_current.chain()
         Sounds.help_s.chain()
+        Sounds.help_for_help.chain()
         Sounds.help_a.chain()
         Sounds.help_quit.chain()
         print("Press A or ; to quit the program")
@@ -149,12 +153,13 @@ class Menu_New(State):
         Sounds.help_book_selection.chain()
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
-        Sounds.help_scroll_down.chain()
-        Sounds.help_d.chain()
         Sounds.help_scroll_up.chain()
+        Sounds.help_d.chain()
+        Sounds.help_scroll_down.chain()
         Sounds.help_space.chain()
         Sounds.help_select_current.chain()
         Sounds.help_s.chain()
+        Sounds.help_for_help.chain()
         Sounds.help_a.chain()
         Sounds.help_back.chain()
         
@@ -214,12 +219,13 @@ class Menu_Chapters(State):
         Sounds.help_chapter_selection.chain()
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
-        Sounds.help_scroll_down.chain()
-        Sounds.help_d.chain()
         Sounds.help_scroll_up.chain()
+        Sounds.help_d.chain()
+        Sounds.help_scroll_down.chain()
         Sounds.help_space.chain()
         Sounds.help_select_current.chain()
         Sounds.help_s.chain()
+        Sounds.help_for_help.chain()
         Sounds.help_a.chain()
         Sounds.help_back.chain()
         
@@ -236,6 +242,7 @@ class Menu_Chapters(State):
                 check_if_present = BookData.audio_files[self.context.get_current_book()][self.options[self.current][1]][0]
                 Sounds.file_present_test(check_if_present)
                 self.context.set_current_chapter(self.options[self.current][1])
+                # set to -1 to read book from beggining
                 self.context.set_time(-1)
                 self.context.transition_to("menu_modes")
         except:
@@ -245,7 +252,7 @@ class Menu_Chapters(State):
 class Menu_Modes(State):
     
     def __init__(self):
-        self.options = [(Sounds.mode_standard, "menu_reading"), (Sounds.mode_headings, "menu_headings"), (Sounds.mode_topics, "menu_headings_and_topics"),]
+        self.options = [(Sounds.mode_standard, "menu_reading"), (Sounds.mode_headings, "menu_headings"), (Sounds.mode_topics, "menu_headings_and_topics")]
         self.option_numbers = len(self.options) - 1
         self.current = 0
 
@@ -285,12 +292,13 @@ class Menu_Modes(State):
         Sounds.help_mode_selection.chain()
         Sounds.help_buttons.chain()
         Sounds.help_f.chain()
-        Sounds.help_scroll_down.chain()
-        Sounds.help_d.chain()
         Sounds.help_scroll_up.chain()
+        Sounds.help_d.chain()
+        Sounds.help_scroll_down.chain()
         Sounds.help_space.chain()
         Sounds.help_select_current.chain()
         Sounds.help_s.chain()
+        Sounds.help_for_help.chain()
         Sounds.help_a.chain()
         Sounds.help_back.chain()
         
@@ -318,6 +326,8 @@ class Menu_Reading(State):
         chapter = self.context.get_current_chapter()
         if book and chapter:
             try:
+                print("Current Time:", self.context.get_time())
+                Sounds.help_standard_mode.play()
                 filename, length, start = BookData.audio_files[book][chapter]
                 if self.context.get_time() == -1: # -1 means continue reading from beginning
                     self.time = start
@@ -326,11 +336,11 @@ class Menu_Reading(State):
                 else: # A regular time means continue reading from save state 
                     self.time = self.context.get_time()
                 self.filename = filename
-                Sounds.help_standard_mode.play()
-                Sounds.reading_reading_book.chain()
-                BookData.book_titles_audio[self.filename][0].chain()
-                Sounds.reading_chapter.chain()
-                BookData.book_titles_audio[self.filename][1].chain()
+                if self.context.get_time() == -1:
+                    Sounds.reading_reading_book.chain()
+                    BookData.book_titles_audio[self.filename][0].chain()
+                    Sounds.reading_chapter.chain()
+                    BookData.book_titles_audio[self.filename][1].chain()
                 self.length = length
                 self.audio = Sounds.load_audiobook(filename, length, self.time)
                 self.audio.chain()
@@ -391,6 +401,7 @@ class Menu_Reading(State):
             Sounds.help_space.chain()
             Sounds.help_pause_and_play.chain()
             Sounds.help_s.chain()
+            Sounds.help_for_help.chain()
             Sounds.help_a.chain()
             Sounds.help_save_and_back.chain()
             Sounds.reading_continue_audio.chain()
@@ -403,8 +414,9 @@ class Menu_Reading(State):
         chapter = self.context.get_current_chapter()
         mode = self.context.get_mode()
         self.context.temporary_save(f'{book}/{chapter}/{self.time}/{mode}')
-        self.context.set_time(-2)
-        self.context.transition_to('menu_saving')
+        self.context.set_time(self.time)
+        self.context.set_switch_from("menu_reading")
+        self.context.transition_to('menu_options')
 
     def handle_5(self) -> None:
         if self.paused:
@@ -431,15 +443,20 @@ class Menu_Headings(State):
         self.pos = 0
         self.length = 0
         self.audio_list = []
+        self.times_list = []
 
     def entering(self) -> None:
         print("Enterring Headings Only Menu")
         book = self.context.get_current_book()
         chapter = self.context.get_current_chapter()
+        self.audio_list = []
+        self.times_list = []
         if book and chapter:
             try:
                 # in this mode, self.context.get_time() will return the current heading number
                 filename = BookData.audio_files[book][chapter][0]
+                Sounds.help_headings_mode.play()
+                print("Current Time:", self.context.get_time())
                 if self.context.get_time() == -1: # -1 means continue reading from beginning
                     self.pos = 0
                 elif self.context.get_time() == -2: # -2 means continue from where the reading was
@@ -447,19 +464,40 @@ class Menu_Headings(State):
                 else: # A regular time means continue reading from save state 
                     self.pos = self.context.get_time()
                 self.filename = filename
-                Sounds.help_headings_mode.play()
-                Sounds.reading_reading_book.chain()
-                BookData.book_titles_audio[self.filename][0].chain()
-                Sounds.reading_chapter.chain()
-                BookData.book_titles_audio[self.filename][1].chain()
+                #create list of times
                 times_list = BookData.section_times[book][chapter]
-                for entry in times_list:
+                self.times_list = [item for item in times_list if item[2] == 1]
+                # Create audio objects for all headings
+                for entry in self.times_list:
                     new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
                     self.audio_list.append(new_sound)
-                start = self.pos
                 self.length = len(self.audio_list)
+                # Convert times
+                print("Switching from:", self.context.get_switch_from())
+                if self.context.get_switch_from() == "menu_headings_and_topics":
+                    point = self.context.times_list[self.pos]
+                    for count in range(len(self.times_list)):
+                        if point == self.times_list[count]:
+                            self.pos = count
+                            break
+                    else:
+                        self.pos = self.length-2
+                elif self.context.get_switch_from() == "menu_reading":
+                    for count in range(len(self.times_list)):
+                        if self.pos <= self.times_list[count][0]:
+                            self.pos = count - 1
+                            break
+                print("New Position:", self.pos)
+                if self.context.get_time() == -1: 
+                    Sounds.reading_reading_book.chain()
+                    BookData.book_titles_audio[self.filename][0].chain()
+                    Sounds.reading_chapter.chain()
+                    BookData.book_titles_audio[self.filename][1].chain()
+                self.context.set_switch_from(None)
+                # start playing audios
+                start = self.pos
                 CURSOR.SetCursor(start)
-                for entry in range(start, len(self.audio_list)):
+                for entry in range(start, self.length):
                     self.audio_list[entry].chain()
             except:
                 print("corrupted save state")
@@ -485,7 +523,6 @@ class Menu_Headings(State):
     def handle_2(self) -> None:
         print("Fast Forward")
         Sounds.reading_fastforward.play()
-        
         if CURSOR.GetCursor() > self.length:
             CURSOR.SetCursor(self.length)
             print("End of Audio")
@@ -523,6 +560,7 @@ class Menu_Headings(State):
             Sounds.help_space.chain()
             Sounds.help_pause_and_play.chain()
             Sounds.help_s.chain()
+            Sounds.help_for_help.chain()
             Sounds.help_a.chain()
             Sounds.help_save_and_back.chain()
             Sounds.reading_continue_audio.chain()
@@ -536,8 +574,15 @@ class Menu_Headings(State):
         chapter = self.context.get_current_chapter()
         mode = self.context.get_mode()
         self.context.temporary_save(f'{book}/{chapter}/{self.pos}/{mode}')
-        self.context.set_time(-2)
-        self.context.transition_to('menu_saving')
+        print(self.pos)
+        print(self.length)
+        position = self.length -1 if self.pos >= self.length else self.pos
+        print(position)
+        self.context.set_time(self.pos)
+        self.context.temporary_time(self.times_list[position][0])
+        self.context.set_times_list(self.times_list)
+        self.context.set_switch_from("menu_headings")
+        self.context.transition_to('menu_options')
 
     def handle_5(self) -> None:
         if self.paused:
@@ -560,7 +605,6 @@ class Menu_Headings(State):
 
 
 class Menu_Headings_And_Topics(State):
-
  
     def __init__(self) -> None:
         self.audio = None
@@ -570,11 +614,14 @@ class Menu_Headings_And_Topics(State):
         self.pos = 0
         self.length = 0
         self.audio_list = []
+        self.times_list = []
 
     def entering(self) -> None:
         print("Enterring Headings and Topics Menu")
         book = self.context.get_current_book()
         chapter = self.context.get_current_chapter()
+        self.audio_list = []
+        self.times_list = []
         if book and chapter:
             try:
                 # in this mode, self.context.get_time() will return the current heading number
@@ -586,20 +633,40 @@ class Menu_Headings_And_Topics(State):
                 else: # A regular time means continue reading from save state 
                     self.pos = self.context.get_time()
                 self.filename = filename
-                Sounds.help_topics_mode.chain()
-                Sounds.reading_reading_book.chain()
-                BookData.book_titles_audio[self.filename][0].chain()
-                Sounds.reading_chapter.chain()
-                BookData.book_titles_audio[self.filename][1].chain()
                 times_list = BookData.section_times[book][chapter]
-                for entry in times_list:
-                    if entry[2] ==  1:
-                        new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
-                        self.audio_list.append(new_sound)
-                start = self.pos
+                self.times_list = times_list
+                # Create audio objects for all headings
+                for entry in self.times_list:
+                    new_sound = Sounds.load_audiobook(self.filename, entry[1], entry[0])
+                    self.audio_list.append(new_sound)
                 self.length = len(self.audio_list)
+                # Convert times
+                print("Switching from:", self.context.get_switch_from())
+                if self.context.get_switch_from() == "menu_headings":
+                    point = self.context.times_list[self.pos]
+                    for count in range(len(self.times_list)):
+                        if point == self.times_list[count]:
+                            self.pos = count
+                            break
+                    else:
+                        self.pos = self.length-2
+                elif self.context.get_switch_from() == "menu_reading":
+                    for count in range(len(self.times_list)):
+                        if self.pos <= self.times_list[count][0]:
+                            self.pos = count - 1
+                            break
+                print("New Position:", self.pos)
+                if self.context.get_time() == -1: 
+                    Sounds.help_topics_mode.play()
+                    Sounds.reading_reading_book.chain()
+                    BookData.book_titles_audio[self.filename][0].chain()
+                    Sounds.reading_chapter.chain()
+                    BookData.book_titles_audio[self.filename][1].chain()
+                self.context.set_switch_from(None)
+                # start playing audios
+                start = self.pos
                 CURSOR.SetCursor(start)
-                for entry in range(start, len(self.audio_list)):
+                for entry in range(start, self.length):
                     self.audio_list[entry].chain()
             except:
                 print("corrupted save state")
@@ -664,6 +731,7 @@ class Menu_Headings_And_Topics(State):
             Sounds.help_space.chain()
             Sounds.help_pause_and_play.chain()
             Sounds.help_s.chain()
+            Sounds.help_for_help.chain()
             Sounds.help_a.chain()
             Sounds.help_save_and_back.chain()
             Sounds.reading_continue_audio.chain()
@@ -677,8 +745,15 @@ class Menu_Headings_And_Topics(State):
         chapter = self.context.get_current_chapter()
         mode = self.context.get_mode()
         self.context.temporary_save(f'{book}/{chapter}/{self.pos}/{mode}')
-        self.context.set_time(-2)
-        self.context.transition_to('menu_saving')
+        print(self.pos)
+        print(self.length)
+        position = self.length -1 if self.pos >= self.length else self.pos
+        print(position)
+        self.context.set_time(self.pos)
+        self.context.temporary_time(self.times_list[position][0])
+        self.context.set_times_list(self.times_list)
+        self.context.set_switch_from("menu_headings_and_topics")
+        self.context.transition_to('menu_options')
 
     def handle_5(self) -> None:
         if self.paused:
@@ -699,6 +774,95 @@ class Menu_Headings_And_Topics(State):
             Sounds.reading_pause.play()
             self.paused = not self.paused
 
+class Menu_Options(State):
+
+    def __init__(self):
+        self.options = [(Sounds.options_save_and_quit, "save_and_quit"), (Sounds.options_quit_without, "force_quit"), (Sounds.options_cancel, "go_back"), (Sounds.general_not_available, "switch_mode_1"), (Sounds.general_not_available, "switch_mode_2")]
+        self.option_numbers = len(self.options) - 1
+        self.current = 0
+
+    def handle_scroll_up(self) ->  None:
+        if self.current < self.option_numbers:
+            self.current += 1
+        else:
+            self.current = 0
+        self.options[self.current][0].play()
+        print(self.options[self.current][1])
+
+    def handle_scroll_down(self) -> None: 
+        if self.current > 0:
+            self.current -= 1
+        else:
+            self.current = self.option_numbers
+        self.options[self.current][0].play()
+
+    def entering(self) -> None:
+        print("Enterring Options Menu")
+        self.current = 0
+        if self.context.get_mode() == "menu_reading":
+            self.options[3] = (Sounds.options_headings, "menu_headings")
+            self.options[4] = (Sounds.options_topics, "menu_headings_and_topics")
+        elif self.context.get_mode() == "menu_headings":
+            self.options[3] = (Sounds.options_standard, "menu_reading")
+            self.options[4] = (Sounds.options_topics, "menu_headings_and_topics")
+        else: 
+            self.options[3] = (Sounds.options_standard, "menu_reading")
+            self.options[4] = (Sounds.options_headings, "menu_headings")
+        # Entering Options Menu
+        Sounds.options_entering.play()
+        Sounds.general_your_selection.chain()
+        self.options[self.current][0].chain()
+
+    def handle_1(self) -> None:
+        print("Scroll Down")
+        self.handle_scroll_down()
+    
+    def handle_2(self) -> None:
+        print("Scroll Up")
+        self.handle_scroll_up()
+
+    def handle_3(self) -> None:
+        print("Help")
+        Sounds.help_running.play()
+        Sounds.help_currently_in.chain()
+        Sounds.help_options_menu.chain()
+        Sounds.help_buttons.chain()
+        Sounds.help_f.chain()
+        Sounds.help_scroll_up.chain()
+        Sounds.help_d.chain()
+        Sounds.help_scroll_down.chain()
+        Sounds.help_space.chain()
+        Sounds.help_select_current.chain()
+        Sounds.help_s.chain()
+        Sounds.help_for_help.chain()
+        Sounds.help_a.chain()
+        Sounds.help_back.chain()
+        
+    def handle_4(self) -> None:
+        print("Going Back")
+        self.context.set_time(-2)
+        self.context.transition_back()
+
+    def handle_5(self) -> None: 
+        print(self.options[self.current][1])
+        if self.options[self.current][1] == "save_and_quit":
+            self.context.set_save()
+            self.context.clear_timeline()
+            self.context.transition_to("menu_home")
+        elif self.options[self.current][1] == "force_quit":
+            self.context.clear_timeline()
+            self.context.transition_to("menu_home")
+        elif self.options[self.current][1] == "go_back":
+            self.context.set_time(-2)
+            self.context.transition_back()
+        else:
+            current_mode = self.context.get_mode()
+            new_mode = self.options[self.current][1]
+            print("modes:", current_mode, new_mode)
+            self.context.convert_time_stamp(current_mode, new_mode)
+            self.context.set_mode(new_mode)
+            self.context.timeline_skip()
+            self.context.transition_to(new_mode)
 
 class Menu_Quitting(State):
     
@@ -729,41 +893,4 @@ class Menu_Quitting(State):
 
     def handle_5(self) -> None:
         print("Return to Previous Menu.")
-        self.context.transition_back()
-
-class Menu_Saving(State):
-    
-    def __init__(self):
-        pass
-
-    def entering(self) -> None:
-        print("Press A again to save, space to cancel, or press any other button to go to home menu")
-        Sounds.save_a.play()
-        Sounds.save_space.chain()
-        Sounds.save_any.chain()
-
-    # Handle the four possible key inputs.
-    def handle_1(self) -> None:
-        print("Return Home and Dont Save.")
-        self.context.clear_timeline()
-        self.context.transition_to("menu_home")
-
-    def handle_2(self) -> None:
-        print("Return Home and Dont Save.")
-        self.context.clear_timeline()
-        self.context.transition_to("menu_home")
-
-    def handle_3(self) -> None:
-        print("Return Home and Dont Save.")
-        self.context.clear_timeline()
-        self.context.transition_to("menu_home")
-
-    def handle_4(self) -> None:
-        print("Returning Home and Saving.")
-        self.context.set_save()
-        self.context.clear_timeline()
-        self.context.transition_to("menu_home")
-
-    def handle_5(self) -> None:
-        print("Go Back")
         self.context.transition_back()

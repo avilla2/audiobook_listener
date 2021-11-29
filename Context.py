@@ -19,10 +19,10 @@ MenuInstances = {
                 "menu_new": Menus.Menu_New(), 
                 "menu_quitting": Menus.Menu_Quitting(),
                 "menu_chapters": Menus.Menu_Chapters(),
-                "menu_saving": Menus.Menu_Saving(),
                 "menu_modes": Menus.Menu_Modes(),
                 "menu_headings": Menus.Menu_Headings(),
-                "menu_headings_and_topics": Menus.Menu_Headings_And_Topics()
+                "menu_headings_and_topics": Menus.Menu_Headings_And_Topics(),
+                "menu_options": Menus.Menu_Options()
                 }
                 
 # Initialize Global Module Variables
@@ -57,9 +57,16 @@ class Context:
         self.current_book = None
         self.current_chapter = None
         self.time = -1
+        self.times_list = [] # stores the audio objects for headings and headings/topic sentences modes
+        self._temp_time = 0
+        self.switch_from = None
 
     def temporary_save(self, save: str):
         self._temp_save = save
+
+    def temporary_time(self, time: int):
+        self._temp_time = time
+        print("Temporary Time:", self._temp_time)
 
     def load_save(self) -> bool:
         try:
@@ -79,6 +86,30 @@ class Context:
             self.time = 0
             return False
     
+    def convert_time_stamp(self, from_mode, to_mode):
+        """
+        Convert a time stamp from one mode to another mode
+        """
+        if from_mode == "menu_headings":
+            if to_mode == "menu_reading":
+                self.time = self._temp_time
+                print("Converted")
+        if from_mode == "menu_headings_and_topics":
+            if to_mode == "menu_reading":
+                self.time = self._temp_time
+
+    def set_times_list(self, objects):
+        self.times_list = objects
+
+    def get_times_list(self):
+        return self.times_list
+
+    def set_switch_from(self, value):
+        self.switch_from = value
+
+    def get_switch_from(self):
+        return self.switch_from
+
     def set_save(self):
         f = open('data/savestate.txt', 'w')
         f.write(self._temp_save)
@@ -127,6 +158,10 @@ class Context:
     def clear_timeline(self):
         global last_state
         last_state = []
+    
+    def timeline_skip(self):
+        global last_state
+        last_state.pop()
 
     # Quit the program
     def quit(self):
