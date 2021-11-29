@@ -4,8 +4,8 @@ by Alex Villa 11-2-2021
 adapted from Audio_Menu_State.py from A.Hornof (ajh) 10-27-2021
 
 User input: <Space>    5
-            <D> or <J> 1
-            <F> or <K> 2
+            <F> or <J> 1
+            <D> or <K> 2
             <S> or <L> 3
             <A> or <;> 4
 
